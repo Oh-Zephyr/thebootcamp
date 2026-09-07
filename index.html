@@ -152,6 +152,15 @@
   .badge p{font-size:12.5px;opacity:.85;}
   @media(max-width:820px){.badges .wrap{grid-template-columns:1fr;}}
 
+  /* Flyer match */
+  .flyer-match{padding:clamp(36px,6vw,56px) 0;background:var(--cream);}
+  .flyer-match-head{max-width:640px;margin-bottom:clamp(22px,4vw,32px);}
+  .flyer-match-head h2{font-size:clamp(22px,2.8vw,30px);margin-top:8px;}
+  .flyer-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:620px;}
+  .flyer-card{border-radius:12px;overflow:hidden;border:1px solid var(--line);box-shadow:0 10px 24px rgba(11,23,48,.12);background:var(--paper);}
+  .flyer-card img{width:100%;height:auto;display:block;}
+  @media(max-width:560px){.flyer-grid{grid-template-columns:1fr;max-width:320px;margin:0 auto;}}
+
   /* Section shell */
   section{padding:clamp(44px,8vw,72px) 0;}
   .section-head{max-width:640px;margin-bottom:clamp(28px,5vw,44px);}
@@ -371,6 +380,24 @@
       <div class="badge navy">
         <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="#F5A623" stroke-width="2"><path d="M7 8l-4 4 4 4M17 8l4 4-4 4M14 4l-4 16"/></svg></div>
         <div><h4>Websites &amp; apps with AI</h4><p>Build and launch real projects</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FLYER MATCH -->
+  <section class="flyer-match">
+    <div class="wrap">
+      <div class="flyer-match-head">
+        <span class="eyebrow">Seen this around?</span>
+        <h2>Same bootcamp, same offer — you're in the right place.</h2>
+      </div>
+      <div class="flyer-grid">
+        <div class="flyer-card">
+          <img src="images/flyer-1.jpg" alt="DiamondVilla Hub bootcamp flyer, version 1" loading="lazy">
+        </div>
+        <div class="flyer-card">
+          <img src="images/flyer-2.jpg" alt="DiamondVilla Hub bootcamp flyer, version 2" loading="lazy">
+        </div>
       </div>
     </div>
   </section>
