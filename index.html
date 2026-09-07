@@ -203,8 +203,8 @@
 
   /* Spotlight (portrait photo section, replaces old wide banner) */
   .spotlight{background:var(--navy-950);}
-  .spotlight-grid{display:grid;grid-template-columns:0.85fr 1.15fr;gap:clamp(28px,5vw,48px);align-items:center;}
-  .spotlight-photo{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:3/4;box-shadow:0 20px 40px rgba(0,0,0,.35);}
+  .spotlight-grid{display:grid;grid-template-columns:0.75fr 1.25fr;gap:clamp(28px,5vw,48px);align-items:center;}
+  .spotlight-photo{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:3/4;max-width:360px;box-shadow:0 20px 40px rgba(0,0,0,.35);}
   .spotlight-photo::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
     background:radial-gradient(120% 100% at 50% 42%, transparent 45%, rgba(11,23,48,.65) 100%);}
   .spotlight-photo img{width:100%;height:100%;object-fit:cover;object-position:top center;}
@@ -303,6 +303,53 @@
   .foot-tagline{font-size:12px;letter-spacing:.04em;color:#8B93AB;}
   .foot-addr{font-size:13px;text-align:right;line-height:1.6;}
   @media(max-width:600px){.foot-grid{flex-direction:column;align-items:flex-start;} .foot-addr{text-align:left;}}
+  /* ============ Motion: hover states, load-in, hero float ============ */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes floatY{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+
+  /* Hero load-in sequence */
+  .hero-tag,.hero-h,.hero-sub,.hero-actions,.hero-meta{opacity:0;animation:fadeUp .7s ease forwards;}
+  .hero-tag{animation-delay:.05s;}
+  .hero-h{animation-delay:.15s;}
+  .hero-sub{animation-delay:.28s;}
+  .hero-actions{animation-delay:.4s;}
+  .hero-meta{animation-delay:.5s;}
+  .hero-photo-wrap{opacity:0;animation:fadeUp .8s ease .2s forwards, floatY 6s ease-in-out 1s infinite;}
+
+  /* Card lift/hover across the site */
+  .learn-card,.angle-card,.day,.faq-item,.step,.flyer-card,.badge,.req-list li{
+    transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease, background-color .22s ease;
+  }
+  .learn-card:hover{transform:translateY(-5px);box-shadow:0 14px 28px rgba(11,23,48,.14);}
+  .angle-card:hover{transform:translateY(-5px);background:rgba(255,255,255,.08);border-color:rgba(245,166,35,.4);}
+  .day:hover{transform:translateY(-4px);border-color:var(--gold-500);box-shadow:0 10px 20px rgba(11,23,48,.1);}
+  .faq-item:hover{border-color:var(--gold-500);box-shadow:0 10px 20px rgba(11,23,48,.07);}
+  .step:hover{transform:translateY(-4px);border-color:rgba(245,166,35,.5);}
+  .flyer-card:hover{transform:translateY(-5px);box-shadow:0 18px 32px rgba(11,23,48,.2);}
+  .badge:hover{transform:translateY(-3px);}
+  .req-list li:hover{border-color:var(--gold-500);transform:translateX(3px);}
+  .fact{transition:background-color .22s ease;}
+  .fact:hover{background:var(--cream);}
+
+  /* Nav + link hovers */
+  .nav-links a{position:relative;transition:color .2s ease;}
+  .nav-links a:hover{color:var(--gold-600);}
+  .nav-links a::after{content:"";position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--gold-500);transition:width .25s ease;}
+  .nav-links a:hover::after{width:100%;}
+  .brand{transition:opacity .2s ease;}
+  .brand:hover{opacity:.75;}
+
+  /* Photo zoom on hover, everywhere .photo-frame is used */
+  .photo-frame img{transition:transform .5s ease;}
+  .photo-frame:hover img{transform:scale(1.045);}
+  .apply-avatar img{transition:transform .4s ease;}
+  .apply-avatar:hover img{transform:scale(1.08);}
+
+  @media (prefers-reduced-motion: reduce){
+    .hero-tag,.hero-h,.hero-sub,.hero-actions,.hero-meta,.hero-photo-wrap{animation:none !important;opacity:1 !important;transform:none !important;}
+    .photo-frame img,.apply-avatar img{transition:none !important;}
+    *{scroll-behavior:auto !important;}
+  }
 </style>
 </head>
 <body>
