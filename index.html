@@ -46,6 +46,13 @@
   h1,h2,h3,h4{font-family:'Sora',sans-serif;color:var(--navy-950);line-height:1.12;letter-spacing:-0.01em;}
   a{color:inherit;}
   img{max-width:100%;display:block;}
+  /* shared photo treatment: unifies real photos + stock photos into one visual system */
+  .photo-frame{position:relative;overflow:hidden;isolation:isolate;}
+  .photo-frame img{filter:saturate(1.06) contrast(1.03) brightness(1.01);}
+  .photo-frame::after{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(11,23,48,0) 55%, rgba(11,23,48,.32) 100%),
+               linear-gradient(0deg, rgba(245,166,35,.06), rgba(245,166,35,.06));
+    pointer-events:none;z-index:1;}
   .wrap{max-width:var(--wrap);margin:0 auto;padding:0 clamp(18px,4.5vw,28px);}
   .btn{
     display:inline-flex;align-items:center;gap:10px;
@@ -112,9 +119,6 @@
   .hero-photo{position:relative;z-index:1;border-radius:24px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 24px 48px rgba(11,23,48,.22);}
   .hero-photo img{width:100%;height:100%;object-fit:cover;}
   .hero-photo.img-fallback{background:linear-gradient(150deg,var(--navy-900),var(--navy-700));}
-  .hero-accent{position:absolute;left:-9%;top:-7%;width:36%;aspect-ratio:4/5;border-radius:16px;overflow:hidden;
-    border:4px solid var(--cream);box-shadow:0 14px 26px rgba(11,23,48,.3);z-index:2;}
-  .hero-accent img{width:100%;height:100%;object-fit:cover;display:block;}
   .hero-float-card{
     position:relative;z-index:2;margin:-48px clamp(10px,3vw,20px) 0;background:var(--navy-950);color:#fff;
     border-radius:16px;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;
@@ -133,7 +137,6 @@
   }
   @media(max-width:480px){
     .hero-float-card{margin-top:-36px;}
-    .hero-accent{width:34%;left:-6%;top:-6%;border-width:3px;}
   }
 
   /* skill badges strip */
@@ -203,6 +206,14 @@
   .stat-row div span{font-size:12px;color:#C7CBDA;}
   @media(max-width:820px){.spotlight-grid{grid-template-columns:1fr;}.spotlight-photo{max-width:340px;margin:0 auto;}}
 
+  /* Community banner (stock photo, multi-person) */
+  .community{position:relative;height:clamp(220px,32vw,300px);}
+  .community img{width:100%;height:100%;object-fit:cover;}
+  .community.img-fallback{background:linear-gradient(120deg,var(--navy-900),var(--navy-700));}
+  .community-txt{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:clamp(20px,4vw,32px) clamp(18px,4.5vw,28px);
+    max-width:640px;}
+  .community-txt h2{color:#fff;font-size:clamp(20px,2.6vw,28px);margin-top:8px;}
+
   /* Schedule */
   .schedule{background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
   .days{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
@@ -264,7 +275,11 @@
   .step h4{color:#fff;font-size:16px;margin-bottom:8px;}
   .step p{color:#B9C0D4;font-size:13.5px;}
   .apply-cta{display:flex;flex-wrap:wrap;align-items:center;gap:16px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:var(--radius);padding:clamp(20px,4vw,26px) clamp(20px,4vw,28px);justify-content:space-between;}
+  .apply-cta .txt-row{display:flex;align-items:center;gap:16px;}
   .apply-cta .txt{max-width:46ch;}
+  .apply-avatar{width:54px;height:54px;border-radius:50%;flex:none;box-shadow:0 6px 14px rgba(0,0,0,.3);}
+  .apply-avatar.img-fallback{background:linear-gradient(150deg,var(--navy-800),var(--navy-700));}
+  .apply-avatar img{width:100%;height:100%;object-fit:cover;object-position:top center;}
   .apply-cta h4{color:#fff;font-size:17px;margin-bottom:6px;}
   .apply-cta p{color:#C7CBDA;font-size:14px;}
   @media(max-width:820px){.steps{grid-template-columns:1fr;gap:12px;}}
@@ -331,11 +346,8 @@
 
       <div class="hero-photo-wrap">
         <div class="hero-photo-shape"></div>
-        <div class="hero-photo">
+        <div class="hero-photo photo-frame">
           <img src="images/hero-main.jpg" alt="Young man in a green turtleneck, arms crossed, confident portrait" onerror="this.parentElement.classList.add('img-fallback');this.remove();">
-        </div>
-        <div class="hero-accent">
-          <img src="images/hero-accent.jpg" alt="Young man in white outfit seated, thoughtful portrait" onerror="this.parentElement.classList.add('img-fallback');this.remove();">
         </div>
         <div class="hero-float-card">
           <div class="seats"><b>6</b><span>spots this intake. 20 people are starting — only 6 through this one.</span></div>
@@ -425,7 +437,7 @@
   <!-- SPOTLIGHT -->
   <section class="spotlight">
     <div class="wrap spotlight-grid">
-      <div class="spotlight-photo">
+      <div class="spotlight-photo photo-frame">
         <img src="images/spotlight.jpg" alt="Young man walking confidently, jacket over shoulder" onerror="this.parentElement.classList.add('img-fallback');this.remove();">
       </div>
       <div class="spotlight-txt">
@@ -479,6 +491,15 @@
     </div>
   </section>
 
+  <!-- COMMUNITY -->
+  <div class="community photo-frame">
+    <img src="https://images.unsplash.com/photo-1655720348590-c739c860beed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wxMDE3MjIwfDB8MXxzZWFyY2h8Mnx8ZGl2ZXJzZSUyMHlvdW5nJTIwYWZyaWNhbnMlMjBsYXB0b3BzJTIwY29tbXVuaXR5fGVufDB8MHx8fDE3ODg4MDUzNTl8Mg&ixlib=rb-4.1.0&q=80&w=1600" alt="A small group learning together, laptops open" onerror="this.parentElement.classList.add('img-fallback');this.remove();">
+    <div class="community-txt">
+      <span class="eyebrow" style="color:var(--gold-500);">You're not figuring this out alone</span>
+      <h2>Six strangers on day one. A cohort by day five.</h2>
+    </div>
+  </div>
+
   <!-- DETAILS / FACTS -->
   <section id="details">
     <div class="wrap">
@@ -502,7 +523,7 @@
   <!-- AFTER -->
   <section>
     <div class="wrap after">
-      <div class="after-photo">
+      <div class="after-photo photo-frame">
         <img src="images/after.jpg" alt="Young man in a printed shirt, seated, relaxed and confident" onerror="this.parentElement.classList.add('img-fallback');this.remove();">
       </div>
       <div>
@@ -569,9 +590,14 @@
         <div class="step"><div class="num">03</div><h4>Get your confirmation</h4><p>If you're one of the 6, we'll confirm your spot and next steps.</p></div>
       </div>
       <div class="apply-cta">
-        <div class="txt">
-          <h4>Ready to apply?</h4>
-          <p>Spots are limited to 6 people for this intake — apply early.</p>
+        <div class="txt-row">
+          <div class="apply-avatar photo-frame">
+            <img src="images/hero-accent.jpg" alt="Young man in white outfit, seated portrait" onerror="this.parentElement.classList.add('img-fallback');this.remove();">
+          </div>
+          <div class="txt">
+            <h4>Ready to apply?</h4>
+            <p>Spots are limited to 6 people for this intake — apply early.</p>
+          </div>
         </div>
         <a href="https://wa.me/2347017906467?text=Hi%2C%20I%27d%20like%20to%20apply%20for%20the%20DiamondVilla%20Hub%20bootcamp." class="btn btn-gold" id="whatsapp-cta">Apply on WhatsApp →</a>
       </div>
